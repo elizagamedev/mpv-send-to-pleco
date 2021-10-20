@@ -6,7 +6,6 @@ local mp = require("mp")
 local utils = require("mp.utils")
 
 local last_subtitle = ""
-local auto_mode_enabled = true
 
 local function is_empty(s)
 	return s == nil or s == ""
@@ -73,23 +72,8 @@ local function send_to_pleco(text)
 end
 
 mp.observe_property("sub-text", "string", function(prop, subtitle)
-	if auto_mode_enabled and subtitle ~= last_subtitle and is_chinese(subtitle) then
+	if subtitle ~= last_subtitle and is_chinese(subtitle) then
 		last_subtitle = subtitle
 		send_to_pleco(subtitle)
-	end
-end)
-
-mp.add_key_binding("Ctrl+a", "toggle-send-to-pleco-auto-mode", function()
-	auto_mode_enabled = not auto_mode_enabled
-	mp.osd_message("Send to Pleco Auto-Mode: " .. utils.to_string(auto_mode_enabled))
-end)
-
-mp.add_key_binding("a", "send-to-pleco", function()
-	local lang = mp.get_property("current-tracks/sub/lang")
-	print(lang)
-	local subtitle = mp.get_property("sub-text")
-	if not is_empty(subtitle) then
-		send_to_pleco(subtitle)
-		mp.osd_message("Sent to Pleco.")
 	end
 end)
