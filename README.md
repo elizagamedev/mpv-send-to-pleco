@@ -10,4 +10,6 @@ Android device.
 This should also work with an Android emulator, provided that it's compatible
 with ADB.
 
-The default keybinding is `a` to send the current line to the Android device.
+This addon will automatically send any Chinese subtitles it detects to Pleco as
+they appear. The default keybinding to disable this behavior is `Ctrl+a`. You
+can also manually send the current subtitle to Pleco via `a`.
